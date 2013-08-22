@@ -12,9 +12,8 @@ public class WordManager {
 
 	protected int indexBound;
 	
-	protected String word;
-	protected String phonetic;
-	protected String interp;
+	Word word = new Word();
+	
 	protected String thesName;
 	
 	public WordManager(String filePath, String fileName) throws IOException {
@@ -24,7 +23,7 @@ public class WordManager {
 	}
 	
 	
-	public void getWordAndInterp() throws IOException {
+	public Word getRandomWord() throws IOException {
 		Random random = new Random(System.currentTimeMillis());
 		this.index = Math.abs(random.nextInt() % indexBound);
 		
@@ -39,11 +38,39 @@ public class WordManager {
 			line = br.readLine();
 		}
 		
-		this.word = br.readLine();
-		this.phonetic = br.readLine();
-		this.interp = br.readLine();
+		word.name = br.readLine();
+		word.phonetic = br.readLine();
+		word.interp = br.readLine();
+		
 		br.close();
 		fr.close();
+		
+		return word;
+	}
+	
+	public Word getWordByName(String name) throws IOException {
+		FileReader fr = new FileReader(filePath + '/' + fileName);
+		BufferedReader br = new BufferedReader(fr);
+		String line = br.readLine();// ´Ê¿âÃû³Æ
+		thesName = line;
+
+		while (!line.equals(name)) {
+			line = br.readLine();
+			System.out.println(line);
+		}
+		word.name = line;
+		word.phonetic = br.readLine();
+		word.interp = br.readLine();
+		
+		br.close();
+		fr.close();
+		
+		if (!word.name.equals("")) {
+			return word;
+		}
+		else {
+			return null;
+		}
 	}
 	
 	public void calcIndexBound() throws IOException {

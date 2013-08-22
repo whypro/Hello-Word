@@ -47,7 +47,12 @@ class ReciteStat extends JFrame {
 		}
 		
 		String[] names = {"单词", "首次记忆时间", "上次记忆时间", "记忆阶段", "陌生度"}; 
-		table = new JTable(o, names);
+		table = new JTable(o, names) {
+			// 将词汇统计设为只读
+			public boolean isCellEditable(int row, int column) {
+				return false;  
+			}
+		};
 
 		mainPanel.add(new JScrollPane(table));
 		

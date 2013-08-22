@@ -2,11 +2,6 @@ package whypro.memorize;
 
 class ReciteRecord {
 	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 4387603127762983104L;
-	
 	public String word;
 	public long startDate;
 	public long lastDate;
