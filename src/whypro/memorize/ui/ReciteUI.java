@@ -15,7 +15,6 @@ import java.awt.event.KeyListener;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Vector;
 
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -29,7 +28,6 @@ import javax.swing.JTextArea;
 
 
 import whypro.memorize.managers.ReciteManager;
-import whypro.memorize.models.ReciteRecord;
 import whypro.memorize.models.Word;
 
 
@@ -53,25 +51,17 @@ public class ReciteUI extends JFrame implements KeyListener, ActionListener {
 	final private JMenuItem aboutItem = new JMenuItem("关于 (A)");
 	/* 各种控件 */
 	
-	String recordPath = "./record/recite.dat";	// 背诵记录文件路径
-	private ReciteManager reciteManager;
-	
-	
+	private String recordPath = "./record/recite.dat";	// 背诵记录文件路径
 	private String strSpelling = "";
-
 	// 标志位，忽略一次Type事件
 	private boolean isCorrect = false;
 	
+	private ReciteManager reciteManager;
+	
 
-	String fontPath = "./font";	// 字体路径
-	String fontName = "TOPhonetic.ttf";
-	String thesPath = "./thesaurus/TOFEL.txt";	// 词库路径
-	String thesName = "";
-	
-	
-	
-	Vector<ReciteRecord> recordsVector = new Vector<ReciteRecord>();	// 背诵记录
-	
+	private String fontPath = "./font";	// 字体路径
+	private String fontName = "TOPhonetic.ttf";
+	private String thesPath = "./thesaurus/TOFEL.txt";	// 默认词库路径
 	
 	public ReciteUI() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -204,6 +194,7 @@ public class ReciteUI extends JFrame implements KeyListener, ActionListener {
 	
 	// 将单词显示在界面上
 	public void showWord(Word word) {
+		strSpelling = "";
 		lblEnglish.setText(" ");
 		lblPhonetic.setText(word.phonetic);
 		txtChinese.setText(word.interp);
@@ -282,6 +273,7 @@ public class ReciteUI extends JFrame implements KeyListener, ActionListener {
 				lblEnglish.setText(strWord);
 				// 陌生度
 				reciteManager.increaseStrange();
+				
 			}
 		}
 
@@ -314,6 +306,11 @@ public class ReciteUI extends JFrame implements KeyListener, ActionListener {
 				System.exit(-1);
 			}
 			lblStatus.setText(reciteManager.getThesaurusName());
+			
+			reciteManager.setReciteMode(ReciteManager.Modes.NEW);
+			modeItem.setText("复习 (R)");
+			modeItem.setMnemonic('R');
+
 			showWord(reciteManager.getWord());
 		} else {
 			return;
@@ -330,7 +327,7 @@ public class ReciteUI extends JFrame implements KeyListener, ActionListener {
 		}
 		else if (event.getSource() == modeItem) {
 			if (reciteManager.getReciteMode() == ReciteManager.Modes.REVIEW) {
-				reciteManager.setReciteMode(ReciteManager.Modes.REVIEW);
+				reciteManager.setReciteMode(ReciteManager.Modes.NEW);
 				modeItem.setText("复习 (R)");
 				modeItem.setMnemonic('R');
 				try {

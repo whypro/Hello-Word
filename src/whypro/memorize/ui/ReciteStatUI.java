@@ -47,6 +47,8 @@ public class ReciteStatUI extends JFrame {
 				return false;  
 			}
 		};
+		
+		table.setAutoCreateRowSorter(true);	// 表头排序
 
 		mainPanel.add(new JScrollPane(table));
 		

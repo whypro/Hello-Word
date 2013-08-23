@@ -9,9 +9,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.Random;
 import java.util.Vector;
 
 import whypro.memorize.models.ReciteRecord;
+import whypro.memorize.models.Word;
 
 public class ReciteRecordManager {
 	private Vector<ReciteRecord> reciteRecords = new Vector<ReciteRecord>();
@@ -70,11 +72,24 @@ public class ReciteRecordManager {
 	
 	// 保存单条记录
 	public boolean saveReciteRecord(ReciteRecord record) throws FileNotFoundException, IOException {
-		// 如果单词已存在于背诵记录中，则不保存
-		if (!addRecord(record)) {
-			return false;
+		// 如果单词已存在于背诵记录中，则更新
+		int index = -1;
+		for (ReciteRecord r : reciteRecords) {
+			if (record.word.equals(r.word)) {
+				index = reciteRecords.indexOf(r);
+				break;
+			}
 		}
+		if (index != -1) {
+			reciteRecords.remove(index);
+			reciteRecords.add(record);
+		}
+		else {
+			reciteRecords.add(record);
+		}
+		
 		saveAllReciteRecords();
+		
 		/* 追加时存在 BUG
 		// 如果单词不存在于背诵记录中，追加写入
 		ObjectOutputStream outputStream = 
@@ -92,13 +107,13 @@ public class ReciteRecordManager {
 		return true;
 	}
 	
-	private boolean addRecord(ReciteRecord record) {
-		for (ReciteRecord i : reciteRecords) {
-			if (record.word.equals(i.word)) {
-				return false;
-			}
-		}
-		reciteRecords.addElement(record);
-		return true;
+	public Word getRandomRecord() throws FileNotFoundException, IOException {
+		Random random = new Random(System.currentTimeMillis());
+		int index = random.nextInt(reciteRecords.size());
+		// 由单词名获取单词对象
+		String name = reciteRecords.get(index).word;
+		Word word = WordManager.getWordByName(name);
+		return word;
 	}
+	
 }

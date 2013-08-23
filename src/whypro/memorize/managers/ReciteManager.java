@@ -60,26 +60,48 @@ public class ReciteManager {
 
 		switch (reciteMode) {
 		case NEW:
-			//WordManager wordManager = new WordManager();
+			do {
+				currentWord = wordManager.getRandomWord();
+			}
+			while (reciteRecordManager.getReciteRecords().contains(currentWord));
 			break;
 		case REVIEW:
-			//WordManager wordManager = new WordManager();
+			do {
+				currentWord = reciteRecordManager.getRandomRecord();
+			}
+			while (reciteRecordManager.getReciteRecords().contains(currentWord));
 			break;
 		}
-		currentWord = wordManager.getRandomWord();
+		
 		strange = 0;
 		return currentWord;
 	}
 	
 	public boolean saveReciteRecord() throws FileNotFoundException, IOException {
-		ReciteRecord reciteRecord = new ReciteRecord(
-				currentWord.name, 
-				System.currentTimeMillis(), 	// 首次记忆时间
-				System.currentTimeMillis(), 	// 上次记忆时间
-				0, 								// 阶段
-				strange							// 陌生度
-				);
-		reciteRecordManager.saveReciteRecord(reciteRecord);
+		if (reciteMode == Modes.REVIEW) {
+			for (ReciteRecord r : reciteRecordManager.getReciteRecords()) {
+				if (currentWord.name.equals(r.word)) {
+					ReciteRecord reciteRecord = new ReciteRecord(
+							r.word,
+							r.startDate, 
+							System.currentTimeMillis(),
+							r.stage + 1,
+							r.strange + strange);
+					 reciteRecordManager.saveReciteRecord(reciteRecord);
+					 break;
+				}
+			}
+		}
+		else if (reciteMode == Modes.NEW) {
+			ReciteRecord reciteRecord = new ReciteRecord(
+					currentWord.name, 
+					System.currentTimeMillis(), 	// 首次记忆时间
+					System.currentTimeMillis(), 	// 上次记忆时间
+					0, 								// 阶段
+					strange							// 陌生度
+					);
+			reciteRecordManager.saveReciteRecord(reciteRecord);
+		}
 		
 		return false;
 	}

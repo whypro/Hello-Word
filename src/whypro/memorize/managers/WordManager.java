@@ -1,6 +1,7 @@
 package whypro.memorize.managers;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Random;
@@ -42,6 +43,28 @@ public class WordManager {
 		br.close();
 		fr.close();
 		
+		return word;
+	}
+	
+	public static Word getWordByName(String name) throws FileNotFoundException, IOException {
+		String thesDir = "./thesaurus/";
+		String[] thesList = {"CET4.txt", "CET6.txt", "GRE.txt", "TOFEL.txt", "研究生入学考试词汇.txt"};
+		Word word = null;
+		for (int i = 0; i < thesList.length; i++) {
+			FileReader fr = new FileReader(thesDir + thesList[i]);
+			BufferedReader br = new BufferedReader(fr);
+			br.readLine();	// 词库名称
+			
+			String line;
+			while ((line = br.readLine()) != null) {
+				if (name.equals(line)) {
+					String phonetic = br.readLine();
+					String interp = br.readLine();
+					word = new Word(name, phonetic, interp);
+					break;
+				}
+			}
+		}
 		return word;
 	}
 	
