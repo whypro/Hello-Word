@@ -1,4 +1,4 @@
-package whypro.memorize;
+package whypro.memorize.ui;
 
 import java.awt.Font;
 import java.awt.FontFormatException;

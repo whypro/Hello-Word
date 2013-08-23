@@ -1,12 +1,12 @@
-package whypro.memorize;
+package whypro.memorize.models;
 
-class ReciteRecord {
-	
+public class ReciteRecord {
+    
 	public String word;
 	public long startDate;
 	public long lastDate;
 	public int stage;
-	public int strange;	
+	public int strange;
 	
 	public ReciteRecord() {
 		
