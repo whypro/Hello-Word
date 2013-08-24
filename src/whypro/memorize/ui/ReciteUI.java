@@ -57,7 +57,6 @@ public class ReciteUI extends JFrame implements KeyListener, ActionListener {
 	private String strSpelling = "";
 	// 标志位，忽略一次Type事件
 	private boolean isCorrect = false;
-	private boolean isWrong = false;
 	
 	private ReciteManager reciteManager;
 	
@@ -117,7 +116,7 @@ public class ReciteUI extends JFrame implements KeyListener, ActionListener {
 
 		// 获取音标字体
 		try {
-			lblPhonetic.setFont(MyFont.getFont(
+			lblPhonetic.setFont(PhoneticFont.getFont(
 					fontPath, fontName, Font.PLAIN,	20));
 		} catch (FontFormatException e) {
 			JOptionPane.showMessageDialog(this, e.getMessage());
@@ -182,8 +181,6 @@ public class ReciteUI extends JFrame implements KeyListener, ActionListener {
 		setLocation(screenWidth - width / 2, screenHeight - height / 2);
 
 		this.setVisible(true);
-		
-		
 		
 		try {
 			reciteManager = new ReciteManager(recordPath);
@@ -284,12 +281,14 @@ public class ReciteUI extends JFrame implements KeyListener, ActionListener {
 				}
 				
 			} else {
+				if (lblEnglish.getForeground() != Color.red) {
+					// 陌生度++
+					reciteManager.increaseStrange();
+				}
 				// 当拼写不正确时，以红色字体显示
 				strSpelling = "";
 				lblEnglish.setForeground(Color.red);
 				lblEnglish.setText(strWord);
-				// 陌生度
-				reciteManager.increaseStrange();
 			}
 		}
 

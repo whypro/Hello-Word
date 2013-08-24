@@ -7,7 +7,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-public class MyFont {
+public class PhoneticFont {
 
 	public static Font getFont(String filePath, String fileName, int style, float size)
 			throws FontFormatException, IOException {
