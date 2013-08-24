@@ -3,8 +3,8 @@ package whypro.memorize.models;
 public class ReciteRecord {
     
 	public String word;
-	public long startDate;
-	public long lastDate;
+	public long startTime;
+	public long lastTime;
 	public int stage;
 	public int strange;
 	
@@ -14,11 +14,11 @@ public class ReciteRecord {
 	
 	public ReciteRecord(
 			String word, 
-			long startDate, long lastDate, 
+			long startTime, long lastTime, 
 			int stage, int strange) {
 		this.word = word;
-		this.startDate = startDate;
-		this.lastDate = lastDate;
+		this.startTime = startTime;
+		this.lastTime = lastTime;
 		this.stage = stage;
 		this.strange = strange;
 	}

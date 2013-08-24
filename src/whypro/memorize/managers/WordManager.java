@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Random;
 
 import whypro.memorize.models.Word;
@@ -22,23 +23,51 @@ public class WordManager {
 	// 从词库中随机去取出单词
 	public Word getRandomWord() throws IOException {
 		Random random = new Random(System.currentTimeMillis());
-		int index = Math.abs(random.nextInt() % indexBound);
+		int index = random.nextInt(indexBound);
 		
 		FileReader fr = new FileReader(thesPath);
 		BufferedReader br = new BufferedReader(fr);
 		String line = br.readLine();// 词库名称
 		
+		// 跳过前面的内容
 		for (int i = 0; i < 4 * index; i++) {
 			line = br.readLine();
 		}
-		while (!line.equals("")) {
+		// TODO: 有越界的 BUG
+		// 定位到单词条目开始处
+		while (line != null && !line.equals("")) {
 			line = br.readLine();
 		}
 		
-		Word word = new Word();
-		word.name = br.readLine();
-		word.phonetic = br.readLine();
-		word.interp = br.readLine();
+		do {
+			line = br.readLine();
+		}
+		while (line != null && line.equals(""));
+		
+		ArrayList<String> wordItem = new ArrayList<String>();
+		// 直到单词条目结束
+		while (line !=null && !line.equals("")) {
+			wordItem.add(line);
+			line = br.readLine();
+		}
+		
+		Word word = null;
+		switch(wordItem.size()) {
+		case 2:
+			word = new Word();
+			word.name = wordItem.get(0);
+			word.phonetic = " ";
+			word.interp = wordItem.get(1);
+			break;
+		case 3:
+			word = new Word();
+			word.name = wordItem.get(0);
+			word.phonetic = wordItem.get(1);
+			word.interp = wordItem.get(2);
+			break;
+		default:
+			break;
+		}
 		
 		br.close();
 		fr.close();
@@ -53,10 +82,10 @@ public class WordManager {
 		for (int i = 0; i < thesList.length; i++) {
 			FileReader fr = new FileReader(thesDir + thesList[i]);
 			BufferedReader br = new BufferedReader(fr);
-			br.readLine();	// 词库名称
+			String line = br.readLine();	// 词库名称
 			
-			String line;
-			while ((line = br.readLine()) != null) {
+			while (line != null) {
+				line = br.readLine();
 				if (name.equals(line)) {
 					String phonetic = br.readLine();
 					String interp = br.readLine();
@@ -91,4 +120,5 @@ public class WordManager {
 		br.close();
 		fr.close();
 	}
+	
 }

@@ -12,6 +12,7 @@ import java.io.ObjectOutputStream;
 import java.util.Random;
 import java.util.Vector;
 
+import whypro.memorize.models.Ebbinghaus;
 import whypro.memorize.models.ReciteRecord;
 import whypro.memorize.models.Word;
 
@@ -31,8 +32,8 @@ public class ReciteRecordManager {
 
 		for (ReciteRecord r : reciteRecords) {
 			outputStream.writeUTF(r.word);
-			outputStream.writeLong(r.startDate);
-			outputStream.writeLong(r.lastDate);
+			outputStream.writeLong(r.startTime);
+			outputStream.writeLong(r.lastTime);
 			outputStream.writeInt(r.stage);
 			outputStream.writeInt(r.strange);	
 		}
@@ -48,8 +49,8 @@ public class ReciteRecordManager {
 				ReciteRecord temp = new ReciteRecord();
 				try {
 					temp.word = inputStream.readUTF();
-					temp.startDate = inputStream.readLong();
-					temp.lastDate = inputStream.readLong();
+					temp.startTime = inputStream.readLong();
+					temp.lastTime = inputStream.readLong();
 					temp.stage = inputStream.readInt();
 					temp.strange = inputStream.readInt();	
 				}
@@ -108,12 +109,25 @@ public class ReciteRecordManager {
 	}
 	
 	public Word getRandomRecord() throws FileNotFoundException, IOException {
-		Random random = new Random(System.currentTimeMillis());
-		int index = random.nextInt(reciteRecords.size());
-		// 由单词名获取单词对象
-		String name = reciteRecords.get(index).word;
-		Word word = WordManager.getWordByName(name);
-		return word;
+		Ebbinghaus ebbinghaus = new Ebbinghaus();
+		Vector<ReciteRecord> needReciteRecords = new Vector<ReciteRecord>();
+		for (ReciteRecord r : reciteRecords) {
+			if (ebbinghaus.needRecite(r)) {
+				needReciteRecords.add(r);
+			}
+		}
+		
+		if (needReciteRecords.size() != 0) {
+			Random random = new Random(System.currentTimeMillis());
+			int index = random.nextInt(needReciteRecords.size());
+			// 由单词名获取单词对象
+			String name = needReciteRecords.get(index).word;
+			Word word = WordManager.getWordByName(name);
+			return word;
+		}
+		else {
+			return null;
+		}
 	}
 	
 }

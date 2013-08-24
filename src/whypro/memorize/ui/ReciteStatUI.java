@@ -78,9 +78,9 @@ public class ReciteStatUI extends JFrame {
 		
 		for (ReciteRecord i : recordsVector) {
 			obj[j][0] = i.word;
-			str = format.format(new Date(i.startDate));
+			str = format.format(new Date(i.startTime));
 			obj[j][1] = str;
-			str = format.format(new Date(i.lastDate));
+			str = format.format(new Date(i.lastTime));
 			obj[j][2] = str;
 			obj[j][3] = i.stage;
 			obj[j][4] = i.strange;

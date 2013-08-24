@@ -63,7 +63,7 @@ public class ReciteManager {
 			do {
 				currentWord = wordManager.getRandomWord();
 			}
-			while (reciteRecordManager.getReciteRecords().contains(currentWord));
+			while (currentWord == null || reciteRecordManager.getReciteRecords().contains(currentWord));
 			break;
 		case REVIEW:
 			do {
@@ -77,13 +77,14 @@ public class ReciteManager {
 		return currentWord;
 	}
 	
-	public boolean saveReciteRecord() throws FileNotFoundException, IOException {
-		if (reciteMode == Modes.REVIEW) {
+	public void saveReciteRecord() throws FileNotFoundException, IOException {
+		switch (reciteMode) {
+		case REVIEW :
 			for (ReciteRecord r : reciteRecordManager.getReciteRecords()) {
 				if (currentWord.name.equals(r.word)) {
 					ReciteRecord reciteRecord = new ReciteRecord(
 							r.word,
-							r.startDate, 
+							r.startTime, 
 							System.currentTimeMillis(),
 							r.stage + 1,
 							r.strange + strange);
@@ -91,8 +92,8 @@ public class ReciteManager {
 					 break;
 				}
 			}
-		}
-		else if (reciteMode == Modes.NEW) {
+			break;
+		case NEW:
 			ReciteRecord reciteRecord = new ReciteRecord(
 					currentWord.name, 
 					System.currentTimeMillis(), 	// 首次记忆时间
@@ -101,11 +102,7 @@ public class ReciteManager {
 					strange							// 陌生度
 					);
 			reciteRecordManager.saveReciteRecord(reciteRecord);
+			break;
 		}
-		
-		return false;
 	}
-
-	
-	
 }

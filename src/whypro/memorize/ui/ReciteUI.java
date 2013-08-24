@@ -16,6 +16,7 @@ import java.awt.event.KeyListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -28,6 +29,7 @@ import javax.swing.JTextArea;
 
 
 import whypro.memorize.managers.ReciteManager;
+import whypro.memorize.managers.ReciteManager.Modes;
 import whypro.memorize.models.Word;
 
 
@@ -55,6 +57,7 @@ public class ReciteUI extends JFrame implements KeyListener, ActionListener {
 	private String strSpelling = "";
 	// 标志位，忽略一次Type事件
 	private boolean isCorrect = false;
+	private boolean isWrong = false;
 	
 	private ReciteManager reciteManager;
 	
@@ -165,6 +168,9 @@ public class ReciteUI extends JFrame implements KeyListener, ActionListener {
 		this.setTitle("Hello Word");
 		this.setSize(400, 400);
 		this.setResizable(false);
+		
+		ImageIcon icon = new ImageIcon("./res/love.png");
+		this.setIconImage(icon.getImage());
 
 		// 使窗口居中
 		Toolkit kit = Toolkit.getDefaultToolkit(); // 定义工具包
@@ -182,14 +188,31 @@ public class ReciteUI extends JFrame implements KeyListener, ActionListener {
 		try {
 			reciteManager = new ReciteManager(recordPath);
 			reciteManager.setThesaurus(thesPath);
-			reciteManager.nextWord();
 		} catch (IOException e) {
 			JOptionPane.showMessageDialog(this, e.getMessage());
 			System.exit(-1);
 		}
 		lblStatus.setText(reciteManager.getThesaurusName());
+		nextWord();
+	}
+	
+	public void nextWord() {
+		try {
+			if ((reciteManager.getReciteMode() == Modes.REVIEW) &&
+					(reciteManager.nextWord() == null)
+					) {
+				// 所有单词已经复习完
+				JOptionPane.showMessageDialog(this, "已经没有需要复习的单词了~");
+				reciteManager.setReciteMode(Modes.NEW);
+				modeItem.setText("复习 (R)");
+				modeItem.setMnemonic('R');
+			}
+			reciteManager.nextWord();
+		} catch (IOException e) {
+			JOptionPane.showMessageDialog(this, e.getMessage());
+			System.exit(-1);
+		}
 		showWord(reciteManager.getWord());
-		
 	}
 	
 	// 将单词显示在界面上
@@ -208,13 +231,7 @@ public class ReciteUI extends JFrame implements KeyListener, ActionListener {
 		// 当拼写正确时，忽略一次键盘事件，并产生新词
 		if (isCorrect) {
 			isCorrect = false;
-			try {
-				reciteManager.nextWord();
-			} catch (IOException e) {
-				JOptionPane.showMessageDialog(this, e.getMessage());
-				System.exit(-1);
-			}
-			showWord(reciteManager.getWord());
+			nextWord();
 			return;
 		}
 
@@ -224,7 +241,7 @@ public class ReciteUI extends JFrame implements KeyListener, ActionListener {
 		if (strSpelling.length() < strWord.length()) {
 			// 字母限制
 			if (ch >= 'A' && ch <= 'Z' || ch >= 'a' && ch <= 'z' || ch == '-'
-				|| ch == '(' || ch == ')') {
+				|| ch == '(' || ch == ')') {	//  || ch == ' '
 				lblEnglish.setForeground(Color.BLACK);
 				strSpelling += ch;
 				lblEnglish.setText(strSpelling);
@@ -273,19 +290,12 @@ public class ReciteUI extends JFrame implements KeyListener, ActionListener {
 				lblEnglish.setText(strWord);
 				// 陌生度
 				reciteManager.increaseStrange();
-				
 			}
 		}
 
 		// ` 键，跳过该单词
 		if (ch == '`') {
-			try {
-				reciteManager.nextWord();
-			} catch (IOException e) {
-				JOptionPane.showMessageDialog(this, e.getMessage());
-				System.exit(-1);
-			}
-			showWord(reciteManager.getWord());
+			nextWord();
 		}
 	}
 
@@ -300,7 +310,6 @@ public class ReciteUI extends JFrame implements KeyListener, ActionListener {
 			// thesName = chooser.getSelectedFile().getName();
 			try {
 				reciteManager.setThesaurus(thesPath);
-				reciteManager.nextWord();
 			} catch (IOException e) {
 				JOptionPane.showMessageDialog(this, e.getMessage());
 				System.exit(-1);
@@ -310,8 +319,7 @@ public class ReciteUI extends JFrame implements KeyListener, ActionListener {
 			reciteManager.setReciteMode(ReciteManager.Modes.NEW);
 			modeItem.setText("复习 (R)");
 			modeItem.setMnemonic('R');
-
-			showWord(reciteManager.getWord());
+			nextWord();
 		} else {
 			return;
 		}
@@ -330,25 +338,13 @@ public class ReciteUI extends JFrame implements KeyListener, ActionListener {
 				reciteManager.setReciteMode(ReciteManager.Modes.NEW);
 				modeItem.setText("复习 (R)");
 				modeItem.setMnemonic('R');
-				try {
-					reciteManager.nextWord();
-				} catch (IOException e) {
-					JOptionPane.showMessageDialog(this, e.getMessage());
-					System.exit(-1);
-				}
-				showWord(reciteManager.getWord());
+				nextWord();
 			}
 			else if (reciteManager.getReciteMode() == ReciteManager.Modes.NEW) {
 				reciteManager.setReciteMode(ReciteManager.Modes.REVIEW);
 				modeItem.setText("学习 (N)");
 				modeItem.setMnemonic('N');
-				try {
-					reciteManager.nextWord();
-				} catch (IOException e) {
-					JOptionPane.showMessageDialog(this, e.getMessage());
-					System.exit(-1);
-				}
-				showWord(reciteManager.getWord());
+				nextWord();
 			}
 		}
 		else if (event.getSource() == exitItem){
