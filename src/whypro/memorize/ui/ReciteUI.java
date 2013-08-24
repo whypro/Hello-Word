@@ -62,7 +62,9 @@ public class ReciteUI extends JFrame implements KeyListener, ActionListener {
 	
 
 	private String fontPath = "./font";	// 字体路径
-	private String fontName = "TOPhonetic.ttf";
+	private String phoneticFontName = "TOPhonetic.ttf";
+	// private String interpFontName = "STFANGSO.TTF";
+	
 	private String thesPath = "./thesaurus/TOFEL.txt";	// 默认词库路径
 	
 	public ReciteUI() {
@@ -116,8 +118,8 @@ public class ReciteUI extends JFrame implements KeyListener, ActionListener {
 
 		// 获取音标字体
 		try {
-			lblPhonetic.setFont(PhoneticFont.getFont(
-					fontPath, fontName, Font.PLAIN,	20));
+			lblPhonetic.setFont(MyFont.getFont(
+					fontPath, phoneticFontName, Font.PLAIN,	20));
 		} catch (FontFormatException e) {
 			JOptionPane.showMessageDialog(this, e.getMessage());
 			System.exit(-1);
@@ -134,7 +136,9 @@ public class ReciteUI extends JFrame implements KeyListener, ActionListener {
 
 		txtChinese = new JTextArea();
 		txtChinese.setLineWrap(true);
+		
 		txtChinese.setFont(new Font("华文仿宋", Font.PLAIN, 28));
+
 		//txtChinese.setBackground(Color.black);
 		//txtChinese.setForeground(Color.white);
 
