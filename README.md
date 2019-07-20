@@ -7,13 +7,19 @@
 随着国际化的发展，英语变得越来越为重要。随着越来越多的人开始学习英语，一个方便实用的英汉查询工具为人们所渴望。电子词典是一种将传统的印刷词典转成数码方式、进行快速查询的数字学习工具。使用电子词典查询英语，效率远远高于传统的图书查询，而且解释更为详尽，词库更新更为方便快捷。作为大学生，很多人都面临着CET, TOFEL, ILETS, GRE, GMAT等各种英语水平考试的压力，好的学习方法和工具可以使得英语学习事半功倍。出于此目的，本软件应运而生。
 ### 1.2 艾宾浩斯记忆曲线
 #### 1.2.1 记忆规律曲线解释
-德国心理学家艾宾浩斯(H.Ebbinghaus)研究发现，遗忘在学习之后立即开始，而且遗忘的进程并不是均匀的。最初遗忘速度很快，以后逐渐缓慢。他认为＂保持和遗忘是时间的函数＂，并根据他的实验结果绘成描述遗忘进程的曲线，即著名的艾宾浩斯记忆遗忘曲线。图2-1。
-      
+德国心理学家艾宾浩斯(H.Ebbinghaus)研究发现，遗忘在学习之后立即开始，而且遗忘的进程并不是均匀的。最初遗忘速度很快，以后逐渐缓慢。他认为＂保持和遗忘是时间的函数＂，并根据他的实验结果绘成描述遗忘进程的曲线，即著名的艾宾浩斯记忆遗忘曲线。图1-1。
+
+![艾宾浩斯遗忘曲线](design/1.jpg)
+
+![艾宾浩斯遗忘曲线](design/2.gif)
+
 图1-1 艾宾浩斯遗忘曲线
 
 这条曲线告诉人们在学习中的遗忘是有规律的，遗忘的进程很快，并且先快后慢。观察曲线，你会发现,学得的知识在1天后，如不抓紧复习，就只剩下原来的25%。随着时间的推移，遗忘的速度减慢，遗忘的数量也就减少。
 根据我们所知道的，记忆的保持在时间上是不同的，有短时的记忆和长时的记忆两种。而我们平时的记忆的过程是这样的：输入的信息在经过人的注意过程的学习后，便成为了人的短时的记忆，但是如果不经过及时的复习，这些记住过的东西就会遗忘，而经过了及时的复习，这些短时的记忆就会成为了人的一种长时的记忆，从而在大脑中保持着很长的时间。那么，对于我们来讲，怎样才叫做遗忘呢，所谓遗忘就是我们对于曾经记忆过的东西不能再认起来，也不能回忆起来，或者是错误的再认和错误的回忆，这些都是遗忘。艾宾浩斯在做这个实验的时候是拿自己作为测试对象的，他得出了一些关于记忆的结论。他选用了一些根本没有意义的音节，也就是那些不能拼出单词来的众多字母的组合， 
- 
+
+![艾宾浩斯遗忘规律](design/3.gif)
+
 图1-2 艾宾浩斯遗忘规律
 
 比如asww，cfhhj，ijikmb，rfyjbc等等。他经过对自己的测试，得到了一些数据。然后，艾宾浩斯又根据了这些点描绘出了一条曲线，这就是非常有名的揭示遗忘规律的曲线：艾宾浩斯遗忘曲线，图中竖轴表示学习中记住的知识数量，横轴表示时间(天数)，曲线表示记忆量变化的规律。这条曲线告诉人们在学习中的遗忘是有规律的，遗忘的进程不是均衡的，不是固定的一天丢掉几个，转天又丢几个的，而是在记忆的最初阶段遗忘的速度很快，后来就逐渐减慢了，到了相当长的时候后，几乎就不再遗忘了，这就是遗忘的发展规律，即"先快后慢"的原则。观察这条遗忘曲线，你会发现,学得的知识在一天后，如不抓紧复习,就只剩下原来的25%)。随着时间的推移,遗忘的速度减慢，遗忘的数量也就减少。有人做过一个实验，两组学生学习一段课文，甲组在学习后不久进行一次复习，乙组不予复习，一天后甲组保持98%，乙组保持56%；一周后甲组保持83%，乙组保持33%。乙组的遗忘平均值比甲组高。通过艾宾浩斯记忆法，与现代个人计算机相结合，为用户提供比传统背单词方式更加简单、科学、高效的背单词。
@@ -65,11 +71,15 @@ WhyNotMemorise（英语学习助手）
 ### 2.2 功能需求
 
 #### 2.2.1 用例图
- 
+
+![系统用例图](design/4.jpg)
+
 图2-1 系统用例图
 
 #### 2.2.2 活动图
- 
+
+![活动图](design/5.jpg)
+
 图2-2 活动图
 
 1. 单词浏览  
@@ -105,23 +115,30 @@ WhyNotMemorise（英语学习助手）
 
 ### 3.1 系统结构
 ### 3.2 类图
- 
+
+![类图](design/6.jpg)
+
 图3-1 类图
 
 #### 3.2.1 单词浏览
 可通过直接浏览、查找的方式对要背诵的单词进行浏览，在浏览过程中，可将单词加入生词库，并设置“陌生度”。顺序图如图3-2
- 
+
+![单词浏览模块顺序图](design/7.jpg)
+
 图3-2 单词浏览模块顺序图
 
 #### 3.2.2 单词背诵
 根据词库设置，显示对应单词的音标和中文释义，要求用户输入英文单词，按回车键后，系统提示正误，并将背诵记录写入背诵记录文件。顺序图如 图3-3
- 
+
+![单词背诵模块协作图](design/8.jpg)
+
 图3-3 单词背诵模块协作图
 
 ## 4 详细设计
 软件的主要类如图4-1
 
- 
+![类图](design/9.jpg)
+
 图4-1 类图
 
 ### 4.1 WordManager: 
@@ -233,7 +250,7 @@ WhyNotMemorise（英语学习助手）
             return vect;
         }
     }
-    
+
 #### 5.2.2 词库文件的读取
     // WordManager.java
     package whypro.memorize;
@@ -300,7 +317,7 @@ WhyNotMemorise（英语学习助手）
     	}
     	
     }
-    
+
 #### 5.2.3 统计已背诵的单词：
     // ReciteStat.java
     package whypro.memorize;
@@ -366,7 +383,7 @@ WhyNotMemorise（英语学习助手）
     		this.setVisible(true);
     	}
     }
-    
+
 #### 5.2.4 访问自定义字体文件
 由于软件需要显示音标，因此定义了MyFont类，用于使用自定义字体显示单词的音标。关键代码如下：
 
@@ -408,8 +425,9 @@ WhyNotMemorise（英语学习助手）
     import java.util.Vector;
     
     import javax.swing.*;
-    
-    
+
+
+​    
     class WordTester extends JFrame implements KeyListener, ActionListener {
     
     	private static final long serialVersionUID = 1L;
@@ -440,9 +458,10 @@ WhyNotMemorise（英语学习助手）
     
     	// 标志位，忽略一次Type事件
     	boolean isCorrect = false;
-    	
-    
-    
+
+
+​    
+​    
     	String fontPath = "./font";	// 字体路径
     	String fontName = "TOPhonetic.ttf";
     	String thesPath = "./thesaurus/TOFEL.txt";	// 词库路径
@@ -478,8 +497,9 @@ WhyNotMemorise（英语学习助手）
     		exitItem.addActionListener(this);
     		aboutItem.addActionListener(this);
     		this.setJMenuBar(menuBar);
-    
-    
+
+
+​    
     		lblEnglish = new JLabel(strEnglish);
     		lblEnglish.setBackground(Color.WHITE);
     		// lblEnglish.setFont(new Font("Bradley Hand ITC", Font.BOLD, 50));
@@ -533,8 +553,9 @@ WhyNotMemorise（英语学习助手）
     		c.gridy = 4;
     		c.weighty = 0.2;
     		mainPanel.add(lblStatus, c);
-    
-    
+
+
+​    
     		txtChinese.setFocusable(false);
     		this.addKeyListener(this);
     		lblEnglish.addKeyListener(this);
@@ -544,8 +565,9 @@ WhyNotMemorise（英语学习助手）
     		// 软件运行时将背诵记录从文件载入内存
     		recordsVector = RRecordGetter.loadRRecords(recordPath, 100);
     		newRandomWord();
-    
-    
+
+
+​    
     		this.add(mainPanel);
     		// 
     		this.setTitle("whyNotMemorize");
@@ -689,8 +711,9 @@ WhyNotMemorise（英语学习助手）
     			thesPath = chooser.getSelectedFile().getPath();
     			// thesName = chooser.getSelectedFile().getName();
     			newRandomWord();
-    
-    
+
+
+​    
     		} else {
     			return;
     		}
@@ -713,39 +736,52 @@ WhyNotMemorise（英语学习助手）
     
     	}
     }
-    
+
 ## 6. 系统测试
 ### 6.1 主界面
 软件的默认词库为《TOFEL》，第一部分是单词拼写区域。第二部分是音标区域，用于显示该单词的音标。第三部分为释义部分，用于显示单词的解释。第四部分为词库信息，显示词库的名称等相关信息
- 
+
+![单词背诵](screenshots/截图00.png)
+
 图5-1 主界面
 
 ### 6.2 单词背诵
-可通过键盘输入单词，退格键删除最后一个字母，ESC键清空输入，回车键确定，“`”键跳过该单词。
+可通过键盘输入单词，退格键删除最后一个字母，ESC键清空输入，回车键确定，“\`”键跳过该单词。
 
- 
+![单词背诵](screenshots/截图01.png)
+
 图5-2 单词背诵
 
 当单词拼写正确时，单词会以蓝色显示。
- 
+
+![单词拼写正确](screenshots/截图02.png)
+
 图5-3 单词拼写正确
 
 当单词拼写错误时，单词会以红色显示，该单词的陌生度加1
- 
+
+![单词拼写错误](screenshots/截图05.png)
+
 图5-4 单词拼写错误
 
 ### 6.3 词库选择
 单击【文件】【选择词库】，或快捷键【F】【T】进行词库选择。
- 
+
+![词库选择1](screenshots/截图06.png)
+
 图5-5 词库选择1
- 
+
+![词库选择2](screenshots/截图03.png)
+
 图5-6 词库选择2
 
 ### 6.4 词汇统计
 单击【文件】【词汇统计】，或快捷键【F】【S】统计历史背诵的单词。如图5-7：
 
 其中，记忆阶段分为八个阶段，详见绪论部分；陌生度即单词拼写错误的次数，越高代表对此单词越陌生。
- 
+
+![词汇统计](screenshots/截图04.png)
+
 图5-7 词汇统计
 
 ## 7. 致谢
@@ -779,7 +815,6 @@ http://88250.b3log.org/articles/2008/03/10/1205143800000.html
 http://download.oracle.com/javase/6/docs/api/
 18. Using Text Components (http://download.oracle.com/javase/tutorial/uiswing/components/text.html)
 19. WordNet http://wordnet.princeton.edu/
-
 
 ***
 By whypro  
