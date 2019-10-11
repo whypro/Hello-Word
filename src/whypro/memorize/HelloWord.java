@@ -19,6 +19,7 @@ class HelloWord {
 			// handle exception
 		} catch (IllegalAccessException e) {
 			// handle exception
+			//kakadu
 		}
 		
 		
